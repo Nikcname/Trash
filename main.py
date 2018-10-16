@@ -46,13 +46,15 @@ root.data = int(strin[0: i])
 
 sign = strin[i]
 while(i < len(strin)):
-  print(strin[i])
-  root = insrt(root, sign, 8)
+  while(strin[i] == '+' or strin[i] == '-' or strin[i] == '/' or strin[i] == '*'):
+    sign = strin[i]
+    i=i+1
+  print(sign, strin[i])
+  root = insrt(root, sign, strin[i])
   i=i+1
-root = insrt(root, '-', 8)
-root = insrt(root, '+', 1)
-root = insrt(root, '-', 1)
+#root = insrt(root, '-', 8)
+#root = insrt(root, '+', 1)
+#root = insrt(root, '-', 1)
 
 #printTree(root)
-
-print (calculate(root))
+#print (calculate(root))
