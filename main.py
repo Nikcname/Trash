@@ -4,25 +4,25 @@ class Tree(object):
     self.right = None
     self.data = None
 
+#####################################
 def printTree(root):
   if(root):
      printTree(root.left)
      print(root.data)
      printTree(root.right)
 
+#####################################
 def calculate(root):
   if root.left :
     calculate(root.left)
     if root.data == '+':
-      root.data = root.right.data + root.left.data
+      root.data = str(int(root.left.data) + int(root.right.data))
       return root.data
     elif root.data == '-':
-      root.data = root.left.data - root.right.data
+      root.data = str(int(root.left.data) - int(root.right.data))
       return root.data
 
-    
-#3-8-89-1
-
+#####################################
 def insrt(root, data, value):
   tmp = Tree()
   tmp.left = root
@@ -31,30 +31,27 @@ def insrt(root, data, value):
   tmp.right.data = value
   return tmp
 
-strin = "3-8+1-1"
+#####################################
+sign_list = []
+int_list = []
+strin = "3-14+61+7"
 i = int(0)
+j = int(0)
 root = Tree()
-root.left = Tree()
-root.right = Tree()
 
-while(i < len(strin)):
-  i=i+1
-  if strin[i] == '-' or strin[i] == '+' or strin[i] == '*' or strin[i] == '/':
-    break
-
-root.data = int(strin[0: i])
-
+j = i
 sign = strin[i]
 while(i < len(strin)):
-  while(strin[i] == '+' or strin[i] == '-' or strin[i] == '/' or strin[i] == '*'):
-    sign = strin[i]
-    i=i+1
-  print(sign, strin[i])
-  root = insrt(root, sign, strin[i])
+  if strin[i] == '+' or strin[i] == '-' or strin[i] == '/' or strin[i] == '*':
+    sign_list.append(strin[i])
+    int_list.append(strin[j:i])
+    j = i + 1
   i=i+1
-#root = insrt(root, '-', 8)
-#root = insrt(root, '+', 1)
-#root = insrt(root, '-', 1)
 
-#printTree(root)
-#print (calculate(root))
+int_list.append(strin[j:i])
+root.data = int_list[0]
+
+for i in range(0, len(sign_list)):
+  root = insrt(root, sign_list[i], int(int_list[i + 1]))
+
+print(calculate(root))
