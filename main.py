@@ -3,6 +3,7 @@ class Tree(object):
     self.left = None
     self.right = None
     self.data = None
+    self.parent = None
 
 #####################################
 def printTree(root):
@@ -15,7 +16,7 @@ def printTree(root):
 def calculate(root):
   if root.left :
     calculate(root.left)
-    if root.data == '+':
+    if root.data == '+' :
       root.data = str(int(root.left.data) + int(root.right.data))
       return root.data
     elif root.data == '-':
@@ -25,10 +26,12 @@ def calculate(root):
 #####################################
 def insrt(root, data, value):
   tmp = Tree()
+  root.parent = tmp
   tmp.left = root
   tmp.data = data
   tmp.right = Tree()
   tmp.right.data = value
+  tmp.right.parent = tmp
   return tmp
 
 #####################################
